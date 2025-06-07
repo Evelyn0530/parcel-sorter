@@ -49,10 +49,13 @@ class OCRProcessor(VideoProcessorBase):
 st.title("📦 Parcel Zone Sorter System")
 st.markdown("Hold a parcel label up to your webcam. The system will extract the postcode and show the delivery zone.")
 
-webrtc_streamer(
-    key="ocr-zone",
-    video_processor_factory=OCRProcessor,
-    rtc_configuration=RTCConfiguration(
-        {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
-    )
+webrtc_ctx = webrtc_streamer(
+    key="example",
+    video_processor_factory=VideoProcessor,
+    media_stream_constraints={
+        "video": True,
+        "audio": False  # Disable audio
+    },
+    async_processing=True,
 )
+
